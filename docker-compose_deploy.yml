@@ -1,16 +1,20 @@
-# this is the file used to deploy on Portainer
-# or other more permanent hosting solutions
-version: "3.7"
+version: '3.8'
 
 services:
   myapp:
-    container_name: ensf400Lab
-    image: toolbox:latest
-    build: .
-    ports:
-      - "9111:8080"
+    container_name: myapp_subbranch
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/growlf/toolbox:testing
+    environment:
+      - TESTVAR=${TESTVAR:-app}
+    stdin_open: true
+    tty: true
+    command: ["/bin/zsh"]
     volumes:
-      - "app_data2:/var/app_data2"
-
-volumes:
-  app_data2:
+      - ${HOME}/.gitconfig:/home/ubuntu/.gitconfig
+      - ${HOME}/.ssh:/home/ubuntu/.ssh
+      - ${PWD}:/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    network_mode: "host"
