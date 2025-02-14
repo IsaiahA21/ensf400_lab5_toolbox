@@ -4,11 +4,11 @@ version: "3.7"
 
 services:
   myapp:
-    container_name: myapp
-    image: dockerstepbystep:latest
+    container_name: ensf400Lab
+    image: toolbox:latest
     build: .
     ports:
-      - "8080:8080"
+      - "9111:8080"
     volumes:
       - "app_data2:/var/app_data2"
 
