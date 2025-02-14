@@ -1,20 +1,13 @@
-version: '3.8'
-
 services:
-  myapp:
-    container_name: myapp_subbranch
+  # Building and testing environment
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/growlf/toolbox:testing
-    environment:
-      - TESTVAR=${TESTVAR:-app}
+    image: ghcr.io/growlf/toolbox:lastest
     stdin_open: true
     tty: true
     command: ["/bin/zsh"]
     volumes:
-      - ${HOME}/.gitconfig:/home/ubuntu/.gitconfig
-      - ${HOME}/.ssh:/home/ubuntu/.ssh
-      - ${PWD}:/app
       - /var/run/docker.sock:/var/run/docker.sock
     network_mode: "host"
